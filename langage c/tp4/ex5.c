@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <stdbool.h>
-#define LENGTH 9
+#include<time.h>
+#define LENGTH 20
 
 void swap(int *p, int *q){
 	int tmp = *p;
@@ -39,8 +40,14 @@ void sort_ptr (int *start, int *end){
     }
 }
 
+
 int main(){
-    int tab[] = {7,9,4,3,2,10,1,8};
-    sort_ptr(tab, tab+9);
+    srand(time(NULL));
+    int tab[LENGTH];
+    for(int i = 0; i<LENGTH; i++){
+        tab[i] = rand() % 30;
+    }
+    affichetab(tab);
+    sort_ptr(tab, tab+LENGTH);
     affichetab(tab);
 }
