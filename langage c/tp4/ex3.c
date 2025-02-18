@@ -38,7 +38,7 @@ void min_max_op(int *t, size_t nbr, int *pmin, int *pmax){
 }
 
 int main(){
-    int tab[] = {1,2,30,3,4,5,3,3};
+    int tab[] = {90,20,30,3,4,5,3,3};
     size_t res = 0;
     int max = 0;
     int min = 0;
