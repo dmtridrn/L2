@@ -5,6 +5,12 @@
 # Log file
 *.log
 
+# C compiled files
+*.o
+*.out
+*.exe
+a.out
+
 # BlueJ files
 *.ctxt
 
