@@ -46,7 +46,7 @@ void libere_pascal(unsigned **t, size_t taille){
 
 int main(){
     size_t taille;
-    printf("entrez la taille du triangle\n");
+    puts("Entrez la taille du triangl désirée");
     scanf("%zu", &taille);
     printf("Triangle de pascal de taille %zu:\n", taille);
     unsigned **t = pascal(taille);
