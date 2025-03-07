@@ -13,10 +13,6 @@ def verif_tri_circulaire(t):
 # optimal car on ne peut pas vérifier sans vérifier chaque élément, compléxité temps = O(n), 
 # compléxité espace =  O(1)
 
-def compare(i,t):
-    if t[i] < t[i-1]:
-        return 0
-    else:
         
 
 

@@ -140,9 +140,35 @@ def triInsertionParLaDroite(T):
 # Un tri fusion
 #
 
-def triFusion(T):
-    
-    return T
+def fusion(T1, T2):
+    i,j=0,0
+    res=[]
+    while i<len(T1) and j<len(T2):
+        if T1[i]<T2[j]:
+            res.append(T1[i])
+            i+=1
+        else:
+            res.append(T2[j])
+            j+=1
+    while i<len(T1):
+        res.append(T1[i])
+        i+=1
+    while j<len(T2):
+        res.append(T2[j])
+        j+=1
+    return res
+
+
+def triFusion(T, deb=0, fin=None):
+    if fin is None:
+        fin=len(T)
+    if fin-deb<2:
+        return T[deb:fin]
+    else:
+        milieu = (deb+fin)//2
+        gauche = triFusion(T,deb,milieu)
+        droite = triFusion(T,milieu,fin)
+    return fusion(gauche,droite)
 
 ############################################################
 # Exercice 3.1
@@ -151,8 +177,14 @@ def triFusion(T):
 #
 
 def triInsertionPartiel(T, gap, debut):
-    #A COMPLETER
-    return None
+    for i in range(debut,len(T),gap):
+        tmp=T[i]
+        j=i-1
+        while j>=0 and T[j]>tmp:
+            T[j+1]=T[j]
+            j=j-1
+        T[j+1] = tmp
+    return T
 
 
 ############################################################
@@ -161,9 +193,12 @@ def triInsertionPartiel(T, gap, debut):
 # Tri Shell
 #
 
-
 def triShell(T):
-    #A COMPLETER
+    triInsertionPartiel(T,57,0)
+    triInsertionPartiel(T,23,0)
+    triInsertionPartiel(T,10,0)
+    triInsertionPartiel(T,4,0)
+    triInsertionPartiel(T,1,0)
     return T
 
 
