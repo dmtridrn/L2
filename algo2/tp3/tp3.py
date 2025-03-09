@@ -159,16 +159,16 @@ def fusion(T1, T2):
     return res
 
 
-def triFusion(T, deb=0, fin=None):
+def triFusion(T, debut=0, fin=None) :
     if fin is None:
-        fin=len(T)
-    if fin-deb<2:
-        return T[deb:fin]
+        fin = len(T)
+    if fin - debut < 2:
+        return T[debut:fin]
     else:
-        milieu = (deb+fin)//2
-        gauche = triFusion(T,deb,milieu)
-        droite = triFusion(T,milieu,fin)
-    return fusion(gauche,droite)
+        milieu = (debut + fin)//2
+        gauche = triFusion(T, debut, milieu)
+        droite = triFusion(T, milieu, fin)
+    return fusion(gauche, droite)
 
 ############################################################
 # Exercice 3.1
@@ -388,14 +388,14 @@ if __name__ == "__main__":
     # exercice3
 
     print("Exercice 3")
-    algos = [triShell]
-    compareAlgos(algos)
+    #algos = [triShell]
+    #compareAlgos(algos)
 
     #compare tous les algos
 
-    print("Comparaisons de tous les algos")
-    algos = trisInsertion + trisLents + [triFusion, triShell]
-    compareAlgos(algos, taille=2000, pas=200)
+    #print("Comparaisons de tous les algos")
+    #algos = trisInsertion + trisLents + [triFusion, triShell]
+    #compareAlgos(algos, taille=2000, pas=200)
 
     ###################################################################
     ##### Commentez ici les résultats obtenus pour les différents #####
@@ -411,15 +411,18 @@ if __name__ == "__main__":
 
     # compare les tris fusions et Shell
 
-    # print("Comparaisons des tris fusion et Shell")
-    # algos = [triFusion, triShell]
-    # compareAlgos(algos, taille=10000, pas=500)
+    print("Comparaisons des tris fusion et Shell")
+    algos = [triFusion, triShell]
+    #compareAlgos(algos, taille=10000, pas=500)
 
     ###################################################################
     ##### Commentez ici les résultats obtenus pour les différents #####
     ##### algorithmes sur les différents types de tableaux ############
     ###################################################################
-    # commentaires...
+    # pour les très grands tableaux de type randomperm, le tri shell prend énormément de temps (plus d'une seconde)
+    # tandis que le tri fusion garde un temps d'éxécution quasi instantané
+    # on observe le meme comportement pour random tab et derangeunpeu rev = true, le tri shell n'a pas l'air d'être adapté pour des tableau de cette taille
+    #cependant, pour derangeunpeu rev = false, le tri shell est 2x plus rapide que le tri fusion 
     ###################################################################
 
     # comparaison sur tableaux presque triés
@@ -432,20 +435,46 @@ if __name__ == "__main__":
     ##### Commentez ici les résultats obtenus pour les différents #####
     ##### algorithmes sur les différents types de tableaux ############
     ###################################################################
-    # commentaires...
+    # on remarque que pour des tableaux très grands, le trishell est bien plus rapide que le tri fusion, avec un temps d'éxécution de 0.006
+    # contre 0.2 pour le tri fusion
     ###################################################################
 
 
     #Exercice 4
 
-    # print("\nComparaison tri fusion et méthode sort\n")
-    #A COMPLETER
-    #IMPRIMER RATIO TEMPS EXECUTION TRI FUSION/METHODE SORT SUR UNE PERMUTATION
-    #ALEATOIRE AVEC 10**6 ELEMENTS
+    print("\nComparaison tri fusion et méthode sort\n")
+def sortNormalise(T):
+    T.sort()
+    return T
+
+# Générer une grande permutation aléatoire
+n = 10**6  # 1 million d'éléments
+print("Génération d'une permutation aléatoire de 10^6 éléments:")
+t = randomPerm(n)
+
+# Faire des copies pour les deux algorithmes
+t_fusion = t.copy()
+t_sort = t.copy()
+
+# Mesurer les temps d'exécution
+print("Mesure du temps pour le tri fusion:")
+temps_fusion = mesure(triFusion, t_fusion)
+
+print("Mesure du temps pour la méthode sort:")
+temps_sort = mesure(sortNormalise, t_sort)
+
+# Afficher les résultats
+ratio = temps_fusion / temps_sort
+print(f"\nTemps d'exécution du tri fusion: {temps_fusion:.6f} secondes")
+print(f"Temps d'exécution de sort: {temps_sort:.6f} secondes")
+print(f"Ratio tri fusion / sort: {ratio:.2f}")
 
     ###########################################################################
     ### Expliquez ici la difference de performance entre tri fusion et sort ###
     ###########################################################################
-    # commentaires...
+    # on observe un ratio trifusion/sort de 12.8 avec le sort faisant le tri en 0.156 secondes et le tri fusion en 2 secondes
+    # après quelques recherches, ces différences s'expliquent de plusieurs manières:
+    # le tri sort est écrit en C, réputé pour etre un des langages les plus rapides
+    # La méthode sort utilise Timsort, un algorithme hybride optimisé écrit en C
     ###########################################################################
     
