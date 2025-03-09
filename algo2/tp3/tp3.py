@@ -194,6 +194,9 @@ def triInsertionPartiel(T, gap, debut):
 #
 
 def triShell(T):
+    triInsertionPartiel(T,701,0)
+    triInsertionPartiel(T,301,0)
+    triInsertionPartiel(T,132,0)
     triInsertionPartiel(T,57,0)
     triInsertionPartiel(T,23,0)
     triInsertionPartiel(T,10,0)
@@ -347,7 +350,7 @@ if __name__ == "__main__":
     # exercice1
 
     print("Exercice 1")
-    algos = [triSelection]
+    #algos = [triSelection]
     #compareAlgos(algos)
 
     ###################################################################
@@ -361,8 +364,8 @@ if __name__ == "__main__":
     # exercice2
 
     print("Exercice 2")
-    algos += trisInsertion + [triFusion]
-    compareAlgos(algos)
+    #algos += trisInsertion + [triFusion]
+    #compareAlgos(algos)
 
     ###################################################################
     ##### Commentez ici les résultats obtenus pour les différents #####
@@ -384,21 +387,26 @@ if __name__ == "__main__":
 
     # exercice3
 
-    # print("Exercice 3")
-    # algos = [triShell]
-    # compareAlgos(algos)
+    print("Exercice 3")
+    algos = [triShell]
+    compareAlgos(algos)
 
-    # compare tous les algos
+    #compare tous les algos
 
-    # print("Comparaisons de tous les algos")
-    # algos = trisInsertion + trisLents + [triFusion, triShell]
-    # compareAlgos(algos, taille=2000, pas=200)
+    print("Comparaisons de tous les algos")
+    algos = trisInsertion + trisLents + [triFusion, triShell]
+    compareAlgos(algos, taille=2000, pas=200)
 
     ###################################################################
     ##### Commentez ici les résultats obtenus pour les différents #####
     ##### algorithmes sur les différents types de tableaux ############
     ###################################################################
-    # commentaires...
+    # on voit grace à la courbe que le trishell est le moins efficace pour les tableaux derangeunpeu rev = true
+    # il est similaire en temps d'éxéécution aux triselection et tris par insertion pour les tableaux randomperm, seul le tri fusion se démarque par sa rapidité pour ce genre de tableau 
+    # on observe les memes comportements avec les tableaux de la forme randomtab
+    #le trishell est le deuxième plus lent pour les derange un peu rev = true, le trifusion reste le plus performant
+    #d'un autre côté pour rev = false le tri shell est comparable au trifusion et est très très proche du tri insertion par la droite
+    #le tri selection et l'autre tri insertion restent les moins performants sur ce type de tableau
     ###################################################################
 
     # compare les tris fusions et Shell
