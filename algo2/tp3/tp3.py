@@ -348,7 +348,7 @@ if __name__ == "__main__":
 
     print("Exercice 1")
     algos = [triSelection]
-    compareAlgos(algos)
+    #compareAlgos(algos)
 
     ###################################################################
     ##### Commentez ici les résultats obtenus pour les différents #####
@@ -361,14 +361,25 @@ if __name__ == "__main__":
     # exercice2
 
     print("Exercice 2")
-    algos += trisInsertion + [triFusion, triBulles]
+    algos += trisInsertion + [triFusion]
     compareAlgos(algos)
 
     ###################################################################
     ##### Commentez ici les résultats obtenus pour les différents #####
     ##### algorithmes sur les différents types de tableaux ############
     ###################################################################
-    # commentaires...
+    # sur des tableaux complètements aléatoires (randomperm), le trifusion est celui qui prend le moins de temps avec un temps d'éxécution de 0.002 voire 0.000 pour un tab[1000]
+    # le triselection et le triinsertionparlagauche suivent une courbe similaire beaucoup plus lente que le trifusion d'éxécution de 0.08 pour un tab[1000]
+    # mais le triionsertionparladroite est le plus lent avec un temps d'éxécution de 0.016 pour un tab[1000]
+
+    # sur les tableaux un peu dérangés avec reev = true (reverse) les différences sont plus marquées:
+    # on retrouve les memes 3 "groupes": le trifusion avec un temps d'éxécution de 0.000 pour un tab[1000]
+    # le triselection et triinsertionparlagauche avec un temps d'éxécution de 0.008 pour un tab[1000]
+    # et enfin le triinsertionparladroite avec un temps d'éxécution de 0.025 pour un tab[1000]*
+
+    #on observe de gros changements pour rev = false sur les meme types de tableau:
+    #on a le trifusion et le triinsertionparladroite avec un temps d'éxécution de 0.000 pour un tab[1000]
+    #les deux autres ont une courbes montant beaucoup plus avec un temps d'éxécution de 0.012 pour un tab[1000]  
     ###################################################################
 
     # exercice3
