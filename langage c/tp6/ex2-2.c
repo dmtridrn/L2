@@ -31,4 +31,5 @@ int main(int argc, char *argv[]){
     char *x = multiplier(argv[1], mult);
     printf("%s\n", x);
     return EXIT_SUCCESS;
+    free(x);
 }
