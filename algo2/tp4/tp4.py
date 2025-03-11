@@ -193,7 +193,26 @@ if __name__ == '__main__' :
     ##### Commentez ici les résultats obtenus pour les différents #####
     ##### algorithmes sur les différents types de tableaux ############
     ###################################################################
-    # commentaires...
+    # pour randomPerm:
+    # tous les tris rapides ont a peu près les mêmes performances, sans schéma qui se 
+    # répète sur plusieurs fois le meme test (meme si le tri en place sans random parait généralement 
+    # être le plus rapide)
+    # pour randomTab:
+    # le tri rapide en place parait toujours etre le plus performant, les deux tris les plus lents étant 
+    # triFusion et triRapiderandomise avec un temps d'éxécution de 0.03 pour des tab de taille 100
+    # contre 0.015 pour le triRapideEnPlace
+
+    # de grosses différences commencent à se voir avec derangeUnPeu rev = true:
+    # les deux plus lents: le triRapideNaif prend 0.02 seconde et le triRapideEnPlace prend 0.01 seconde
+    # les trois autres tris avoisinnent les 0.002 seconde, ils sont donc bien plus efficaces
+    #pour dérange un peu rev = false, le triRapideNaif reste de loin le plus lent avec 0.025
+    #les autres tris gardent a peu de choses près le meme temps d'éxécution
+
+    #pour dérangeunpeu rev = false avec tableaux énormes:
+    #le triInsertionParLaGauche ne termine pas(j'ai arreté le programme après 5 minutes), ce qui s'explique facilement
+    #par le fait que sa compléxité s'approche du pire cas possible pour ce genre de tab presque trié
+    #pour les 3 autres tris, le triRapideEnPlace prend énormément de temps(2.5) contrairement aux deux autres 
+    # qui sont optimisés pour ce genre de tab(0.03)
     ###################################################################
 
 # Exercice 2
