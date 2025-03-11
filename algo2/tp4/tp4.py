@@ -69,7 +69,7 @@ def triRapideAmeliore(T):
     if len(T)<15:
         T=triInsertionParLaDroite(T)
     else:
-        T=triRapideRandomise(T)
+        T=triRapideEnPlaceRandomise(T)
     return T
 
 ############################################################
@@ -83,7 +83,7 @@ def triRapidePartiel(T) :
     if len(T)<15:
         return T
     else:
-        return triRapideRandomise(T)
+        return triRapideEnPlaceRandomise(T)
 
 ############################################################
 # Exercice 2.3
