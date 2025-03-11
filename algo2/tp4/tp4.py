@@ -339,6 +339,21 @@ if __name__ == '__main__' :
     ##### Commentez ici les résultats obtenus pour les différents #####
     ##### algorithmes sur les différents types de tableaux ############
     ###################################################################
-    # commentaires...
+    # pour randomPerm: les tris semblent équivalents, le plus rapide étant le triFusionnaturel(0.004 comparé aux autres: 0.005)
+    #pour randomTab, le trifusion naturel est le plus lent pour des petites tableaux
+    #mais le triRapideRandomise est le plus lent pour les tailles max(0.006). le trifusion naturel rejoint les deux autres
+    #pour les tableaux de grande taille (0.005)
+
+    #de grandes différences commencent enfin à se faire voir pour dérangeunpeu rev = true:
+    #plutot logiquement, les trifusionnaturel et trifaconTimSort sont lesp lus rapide (0.002) comparé aux deux autres (0.005 ou 0.006)
+    # pour rev = false, le tri facon timsort est le plus rapide (0.002) suivi de près par le triFusionNaturel
+    # les deux autres sont équivalents (0.004)
+
+    #pour les très grands tableaux, le tri timsort est le plus rapide (0.018), suivi du trifusionnaturel (0.02)
+    #le tri shell est dernier mais reste proche (0.023).
+
+    #nous pouvons conclure en disant que, sur des petits tableaux, les algorithmes simples peuvent parfois être meilleurs
+    # mais les algorithmes optimisés pour certains cas (par exemple dérange un peu qui contient énormément de monotonies) 
+    # peuvent etre jusqu'à deux fois plus rapide.
     ###################################################################
 
