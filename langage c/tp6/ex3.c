@@ -61,7 +61,7 @@ mutation longest(const char *s, const char *t){
     while(longest.len + i < lenS){
         mutation temp = diff(s+i, t+i);
         if(temp.len > longest.len){
-            temp.indice = i;
+            temp.indice += i;
             longest = temp;
         }
         i++;
@@ -83,8 +83,11 @@ char *longest_string(const char *s, const char *t){
 
 
 int main(){
-    mutation m1 = longest("AAAAAAAAAAA", "ACCCCCAYYYY");
-    char *a = longest_string("AAAAAAAAAAA", "ACCCCCAYYYY");
+    char* str1 = "AAAAAAAAAAAA";
+    char* str2 = "CCCCCCAAYYYY";
+
+    mutation m1 = longest(str1, str2);
+    char *a = longest_string(str1, str2);
     printf("indice: %zu, longueur: %zu\n", m1.indice, m1.len);
     printf("mutation: %s\n", a);
     free(a);
