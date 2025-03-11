@@ -306,9 +306,9 @@ if __name__ == '__main__' :
 
 # Exercice 2
 
-    print("Exercice 2")
-    algos = trisRapidesHybrides + [ triRapideRandomise, triFusion ]
-    compareAlgos(algos, taille=2000, pas=200)
+    #print("Exercice 2")
+    #algos = trisRapidesHybrides + [ triRapideRandomise, triFusion ]
+    #compareAlgos(algos, taille=2000, pas=200)
 
     ###################################################################
     ##### Commentez ici les résultats obtenus pour les différents #####
@@ -329,11 +329,11 @@ if __name__ == '__main__' :
 
 # Exercice 3
 
-    # print("Exercice 3")
-    # algos = trisFusionsHybrides + [ triRapideRandomise, triFusion ]
-    # compareAlgos(algos, taille=2000, pas=200)
-    # algos = [ triFusionNaturel, triFaconTimSort, triShell ]
-    # compareAlgosSurTableauxTries(algos)
+    print("Exercice 3")
+    algos = trisFusionsHybrides + [ triRapideRandomise, triFusion ]
+    compareAlgos(algos, taille=2000, pas=200)
+    algos = [ triFusionNaturel, triFaconTimSort, triShell ]
+    compareAlgosSurTableauxTries(algos)
 
     ###################################################################
     ##### Commentez ici les résultats obtenus pour les différents #####
