@@ -80,8 +80,10 @@ def triRapideAmeliore(T):
 #
 
 def triRapidePartiel(T) :
-    # À COMPLÉTER
-    return T
+    if len(T)<15:
+        return T
+    else:
+        return triRapideRandomise(T)
 
 ############################################################
 # Exercice 2.3
@@ -90,8 +92,7 @@ def triRapidePartiel(T) :
 #
 
 def triSedgewick(T) :
-    # À COMPLÉTER
-    return T
+    return triInsertionParLaDroite(triRapideAmeliore(T))
 
 
 ############################################################
