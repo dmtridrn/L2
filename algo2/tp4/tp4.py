@@ -229,7 +229,17 @@ if __name__ == '__main__' :
     ##### Commentez ici les résultats obtenus pour les différents #####
     ##### algorithmes sur les différents types de tableaux ############
     ###################################################################
-    # commentaires...
+    # pour randomPerm:
+    # le trirapideamélioré est le plus rapide (0.005), suivi par le trifusion et le triSedgewick (0.006)
+    # le plus lent est le triRapide randomisé (0.008) bien que les différences soient moindres
+
+    #pour randomTab, les différences sont toujours moindres mais le triRapideAmeliore est le plus lent (0.006) 
+    # comparé aux autres (0.005). L'ordre de rapidité change au fil des tests, expliqué par les différences proches de 0
+
+    #pour derangeUnPeu rev = true:
+    #les différences sont encore moins marquées, ont peut dire que les 4 tris sont équivalents (0.004)
+
+    #pour rev = false on observe les mêmes comportements
     ###################################################################
 
 # Exercice 3
