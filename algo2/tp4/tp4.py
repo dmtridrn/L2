@@ -65,8 +65,11 @@ def triRapideEnPlaceRandomise(T) :
 # reste avec l'algo de tri rapide usuel (randomisé bien sûr)
 #
 
-def triRapideAmeliore(T) :
-    # À COMPLÉTER
+def triRapideAmeliore(T):
+    if len(T)<15:
+        T=triInsertionParLaDroite(T)
+    else:
+        T=triRapideRandomise(T)
     return T
 
 ############################################################
