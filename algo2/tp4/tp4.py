@@ -103,12 +103,38 @@ def triSedgewick(T) :
 # copie de T[deb:mil], puis en réalisant la fusion directement dans
 # T[deb:fin]
 
-def fusionAmelioree(T, deb, mil, fin) :
-    # À COMPLÉTER
+def fusionAmelioree(T, deb, mil, fin):
+    aux = T[deb:mil]
+    i = 0 
+    j = mil
+    k = deb
+    while i < len(aux) and j < fin:
+        if aux[i] <= T[j]:
+            T[k] = aux[i]
+            i += 1
+        else:
+            T[k] = T[j]
+            j += 1
+        k += 1
+    while i < len(aux):
+        T[k] = aux[i]
+        i += 1
+        k += 1
     return T
 
-def triFusionAmeliore(T, deb=0, fin=None) :
-    # À COMPLÉTER
+def triFusionAmeliore(T, deb=0, fin=None):
+    if fin is None:
+        fin = len(T)  
+    if fin - deb <= 1:
+        return T
+    
+    mil = (deb + fin) // 2
+    
+    triFusionAmeliore(T, deb, mil)
+    triFusionAmeliore(T, mil, fin)
+    
+    fusionAmelioree(T, deb, mil, fin)
+    
     return T
 
 
@@ -121,14 +147,16 @@ def triFusionAmeliore(T, deb=0, fin=None) :
 def monotonies(T) :
     deb = fin = 0
     while fin < len(T) :
-        #
-        # À COMPLÉTER
-        #
-
-        # à chaque fois qu'une monotonie maximale est trouvée, on renvoie
-        # ses bornes (avec yield, plutôt que return, ainsi l'appel
-        # suivant au générateur poursuivra l'exécution à partir de ce
-        # point)
+        deb = fin
+        fin = deb + 1
+        
+        if fin < len(T):
+            if T[deb] <= T[fin]: #monotonie croissante
+                while fin < len(T) and T[fin-1] <= T[fin]:
+                    fin += 1
+            else: #décroissante
+                while fin < len(T) and T[fin-1] >= T[fin]:
+                    fin += 1
         yield deb, fin
 
 
@@ -144,7 +172,27 @@ def monotonies(T) :
 
 def triFusionNaturel(T) :
     file = [ m for m in monotonies(T) ]
-    # À COMPLÉTER
+    
+    # Tant qu'il reste au moins 2 éléments dans la file
+    while len(file) >= 2:
+        # Extraire la première monotonie
+        (deb1, fin1) = file.pop(0)
+        
+        # Si cette monotonie correspond à la fin du tableau
+        if fin1 == len(T):
+            # La replacer à la fin de la file
+            file.append((deb1, fin1))
+            continue
+        
+        # Sinon, extraire la deuxième monotonie
+        (deb2, fin2) = file.pop(0)
+        
+        # Fusionner les deux monotonies
+        fusionAmelioree(T, deb1, fin1, fin2)
+        
+        # Replacer le résultat dans la file
+        file.append((deb1, fin2))
+    
     return T
 
 ############################################################
