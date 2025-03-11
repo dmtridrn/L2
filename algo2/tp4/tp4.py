@@ -210,11 +210,48 @@ def triFusionNaturel(T) :
 def triFaconTimSort(T) :
     monos = monotonies(T)
     premiere = next(monos)
-    pile = [ premiere ]
-    for m in monos :
+    pile = [premiere]
+    
+    # Phase 1: Empiler les monotonies en maintenant la condition de pile
+    for m in monos:
         pile.append(m)
-        # À COMPLÉTER
-    # À COMPLÉTER
+        # Maintenir la condition de pile: len(m2) >= 2*len(m1)
+        while len(pile) >= 2:
+            m1 = pile[-1]  # Monotonie au sommet
+            m2 = pile[-2]  # Monotonie juste en-dessous
+            
+            # Calculer les longueurs des monotonies
+            len_m1 = m1[1] - m1[0]
+            len_m2 = m2[1] - m2[0]
+            
+            # Si la condition n'est pas respectée, fusionner
+            if len_m2 < 2 * len_m1:
+                # Retirer les deux monotonies de la pile
+                pile.pop()  # Retirer m1
+                pile.pop()  # Retirer m2
+                
+                # Fusionner m2 et m1
+                fusionAmelioree(T, m2[0], m1[0], m1[1])
+                
+                # Ajouter la monotonie fusionnée à la pile
+                pile.append((m2[0], m1[1]))
+            else:
+                # La condition est respectée, on arrête les fusions
+                break
+    
+    # Phase 2: Fusionner toutes les monotonies restantes dans la pile
+    while len(pile) > 1:
+        m1 = pile.pop()  # Retirer la monotonie du sommet
+        m2 = pile.pop()  # Retirer la monotonie suivante
+        
+        # Fusionner m2 et m1 (en s'assurant du bon ordre)
+        if m2[0] < m1[0]:
+            fusionAmelioree(T, m2[0], m1[0], m1[1])
+            pile.append((m2[0], m1[1]))
+        else:
+            fusionAmelioree(T, m1[0], m2[0], m2[1])
+            pile.append((m1[0], m2[1]))
+    
     return T
 
 
