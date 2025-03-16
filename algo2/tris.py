@@ -91,7 +91,7 @@ def rechercheDicho(t,k):
             fin = mid - 1
     return None
 
-def triDrapeauHollandais(t):
+def triDrapeau(t):
     bleu = 0 
     blanc = 0
     rouge = len(t) - 1 
@@ -109,4 +109,4 @@ def triDrapeauHollandais(t):
     return t
 
 a = [0,2,1,2,0,1,1,0,2,0,1,2,0,1,2,0]
-print(triDrapeauHollandais(a))
+print(triDrapeau(a))
