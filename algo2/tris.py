@@ -1,7 +1,6 @@
 def fusion(t1, t2):
     resultat = [0] * (len(t1) + len(t2))
     i = j = k = 0
-
     while i < len(t1) and j < len(t2):
         if t1[i] <= t2[j]:
             resultat[k] = t1[i]
