@@ -50,39 +50,67 @@ char *concat_words(w_index *pi){
     return concat;
 }
 
-int main() {
-    // Initialiser un w_index manuellement
+w_index *cons_index(const char *s){
     w_index *index = malloc(sizeof(w_index));
+    if (index == NULL) {
+        return NULL;
+    }
     
-    // Définir 3 mots
-    index->nbr = 3;
+    index->nbr = nbr_words(s);
+    
     index->words = malloc(index->nbr * sizeof(char*));
+    if (index->words == NULL) {
+        free(index);
+        return NULL;
+    }
     
-    // Allouer et initialiser chaque mot
-    index->words[0] = malloc(6); // "Hello"
-    strcpy(index->words[0], "Hello");
+    char *courant = (char *)s;
+    int longueur = 0;
     
-    index->words[1] = malloc(6); // "World"
-    strcpy(index->words[1], "World");
+    for(unsigned i = 0; i < index->nbr; i++){
+        courant = next_word(courant);
+        if (courant == NULL) {
+            for(unsigned j = 0; j < i; j++) {
+                free(index->words[j]);
+            }
+            free(index->words);
+            free(index);
+            return NULL;
+        }
+        
+        index->words[i] = extract_word(courant, &longueur);
+        if (index->words[i] == NULL) {
+            for(unsigned j = 0; j < i; j++) {
+                free(index->words[j]);
+            }
+            free(index->words);
+            free(index);
+            return NULL;
+        }
+        
+        courant += longueur;
+    }
     
-    index->words[2] = malloc(5); // "Test"
-    strcpy(index->words[2], "Test");
+    return index;
+}
+
+int main() {
+    char *str = "      aaa     b     cecece ";
     
-    // Afficher l'index
-    printf("Contenu de l'index :\n");
-    print_index(index);
+    w_index *user_index = cons_index(str);
+    if (user_index == NULL) {
+        printf("Erreur lors de la création de l'index\n");
+        return 1;
+    }
     
-    // Tester concat_words
-    printf("Test de concat_words :\n");
-    char *concatenated = concat_words(index);
-    printf("Chaîne concaténée : \"%s\"\n", concatenated);
+    printf("Index créé à partir de la chaîne \"%s\":\n", str);
+    print_index(user_index);
     
-    // Libérer la mémoire de la chaîne concaténée
-    free(concatenated);
+    char *user_concat = concat_words(user_index);
+    printf("Chaîne reconstruite : \"%s\"\n", user_concat);
     
-    // Libérer la mémoire de l'index
-    printf("Libération de la mémoire...\n");
-    free_index(index);
+    free(user_concat);
+    free_index(user_index);
     printf("Mémoire libérée avec succès.\n");
     
     return 0;

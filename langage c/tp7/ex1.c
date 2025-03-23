@@ -7,11 +7,19 @@
 
 int nbr_words(const char *s){
     unsigned cpt = 0;
+    bool in_word = false;
+    
     for(size_t i = 0; s[i] != '\0'; i++){
-        if(isspace(s[i]) && (i == 0 || isspace(s[i-1]))){
-            cpt ++;
+        if (!isspace(s[i])) {
+            if (!in_word) {
+                cpt++;
+                in_word = true;
+            }
+        } else {
+            in_word = false;
         }
     }
+    
     return cpt;
 }
 
