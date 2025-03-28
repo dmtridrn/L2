@@ -110,30 +110,60 @@ maillon *copie(maillon *p){
 }
 
 maillon *somme(maillon *p1, maillon *p2){
-    maillon *res;
-    if(p1->degre > p2->degre){
-        res = p1;
-        p1 = p1->suiv;
+    if (p1 == NULL) return copie(p2);
+    if (p2 == NULL) return copie(p1);
+    
+    maillon *tete;
+    maillon *courant;
+    maillon *curr1 = p1;
+    maillon *curr2 = p2;
+    
+    if(curr1->degre > curr2->degre){
+        tete = creer_monome(curr1->coef, curr1->degre);
+        curr1 = curr1->suiv;
     }
-    else if(p1->degre == p2->degre){
-        res = creer_monome(p1->coef + p2->coef, p1->degre);
-        p1 = p1->suiv;
-        p2 = p2->suiv;
+    else if(curr1->degre == curr2->degre){
+        tete = creer_monome(curr1->coef + curr2->coef, curr1->degre);
+        curr1 = curr1->suiv;
+        curr2 = curr2->suiv;
     }
     else{
-        res = p2;
-        p2 = p2->suiv;
+        tete = creer_monome(curr2->coef, curr2->degre);
+        curr2 = curr2->suiv;
     }
-    while(p1 != NULL && p2 != NULL){
-        if(p1->degre == p2->degre){
-            res->suiv = creer_monome(p1->coef + p2->coef, p1->degre);
-            p1 = p1->suiv;
-            p2 = p2->suiv;
+    
+    courant = tete; 
+    
+    while(curr1 != NULL && curr2 != NULL){
+        if(curr1->degre == curr2->degre){
+            courant->suiv = creer_monome(curr1->coef + curr2->coef, curr1->degre);
+            curr1 = curr1->suiv;
+            curr2 = curr2->suiv;
         }
-        else if(p1->degre > p2->degre){
-            res->suiv == p1;
+        else if(curr1->degre > curr2->degre){
+            courant->suiv = creer_monome(curr1->coef, curr1->degre);
+            curr1 = curr1->suiv;
         }
+        else{
+            courant->suiv = creer_monome(curr2->coef, curr2->degre);
+            curr2 = curr2->suiv;
+        }
+        courant = courant->suiv;
     }
+    
+    while(curr1 != NULL){
+        courant->suiv = creer_monome(curr1->coef, curr1->degre);
+        curr1 = curr1->suiv;
+        courant = courant->suiv;
+    }
+    
+    while(curr2 != NULL){
+        courant->suiv = creer_monome(curr2->coef, curr2->degre);
+        curr2 = curr2->suiv;
+        courant = courant->suiv;
+    }
+    
+    return tete;
 }
 
 int main() {
@@ -166,10 +196,14 @@ int main() {
     printf("\nÉvaluation pour x=2 :\n");
     printf("Original : %f\n", evaluer_polynome(poly, 2.0));
     printf("Copie : %f\n", evaluer_polynome(poly_copie, 2.0));
+    printf("Addition: ");
+    maillon *sum = somme(poly, poly_copie);
+    afficher_polynome(sum);
     
     // Libération de la mémoire
     liberer(poly);
     liberer(poly_copie);
+    liberer(sum);
     
     return 0;
 }
