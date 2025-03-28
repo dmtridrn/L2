@@ -166,44 +166,56 @@ maillon *somme(maillon *p1, maillon *p2){
     return tete;
 }
 
-int main() {
-    // Création d'un polynôme initial 5x^3 + 7x^2 + 2x + 3
-    maillon *poly = creer_monome(5, 3);  // 5x^3
-    poly = ajouter_monome(poly, 7, 2);   // + 7x^2
-    poly = ajouter_monome(poly, 2, 1);   // + 2x
-    poly = ajouter_monome(poly, 3, 0);   // + 3
+int main(int argc, char *argv[]) {
+    int nb_monomes_p1, nb_monomes_p2;
+    printf("Entrez le nombre de monômes du premier polynôme: ");
+    scanf("%d", &nb_monomes_p1);
     
-    printf("Polynôme original : ");
-    afficher_polynome(poly);
+    printf("Entrez le nombre de monômes du deuxième polynôme: ");
+    scanf("%d", &nb_monomes_p2);
     
-    // Création d'une copie du polynôme
-    maillon *poly_copie = copie(poly);
-    printf("Polynôme copié : ");
-    afficher_polynome(poly_copie);
+    if (nb_monomes_p1 <= 0 || nb_monomes_p2 <= 0) {
+        printf("Les nombres de monômes doivent être positifs.\n");
+        return 1;
+    }
     
-    // Modification du polynôme original
-    poly = ajouter_monome(poly, 4, 4);   // Ajout de 4x^4
-    poly = ajouter_monome(poly, -2, 1);  // Modification de 2x à 0x
+    maillon *poly1 = NULL;
+    printf("\nCréation du premier polynôme (%d monômes):\n", nb_monomes_p1);
+    for (int i = 0; i < nb_monomes_p1; i++) {
+        int coef, degre;
+        printf("Monôme %d - Coefficient: ", i+1);
+        scanf("%d", &coef);
+        printf("Monôme %d - Degré: ", i+1);
+        scanf("%d", &degre);
+        
+        poly1 = ajouter_monome(poly1, coef, degre);
+    }
     
-    // Vérification que les deux polynômes sont différents
-    printf("\nAprès modifications :\n");
-    printf("Polynôme original modifié : ");
-    afficher_polynome(poly);
-    printf("Polynôme copié (doit rester intact) : ");
-    afficher_polynome(poly_copie);
+    maillon *poly2 = NULL;
+    printf("\nCréation du deuxième polynôme (%d monômes):\n", nb_monomes_p2);
+    for (int i = 0; i < nb_monomes_p2; i++) {
+        int coef, degre;
+        printf("Monôme %d - Coefficient: ", i+1);
+        scanf("%d", &coef);
+        printf("Monôme %d - Degré: ", i+1);
+        scanf("%d", &degre);
+        
+        poly2 = ajouter_monome(poly2, coef, degre);
+    }
     
-    // Évaluation des deux polynômes pour x=2
-    printf("\nÉvaluation pour x=2 :\n");
-    printf("Original : %f\n", evaluer_polynome(poly, 2.0));
-    printf("Copie : %f\n", evaluer_polynome(poly_copie, 2.0));
-    printf("Addition: ");
-    maillon *sum = somme(poly, poly_copie);
-    afficher_polynome(sum);
+    printf("\nPolynôme 1: ");
+    afficher_polynome(poly1);
     
-    // Libération de la mémoire
-    liberer(poly);
-    liberer(poly_copie);
-    liberer(sum);
+    printf("Polynôme 2: ");
+    afficher_polynome(poly2);
+    
+    printf("Somme des polynômes: ");
+    maillon *somme_poly = somme(poly1, poly2);
+    afficher_polynome(somme_poly);
+    
+    liberer(poly1);
+    liberer(poly2);
+    liberer(somme_poly);
     
     return 0;
 }
