@@ -112,7 +112,6 @@ maillon *copie(maillon *p){
 maillon *somme(maillon *p1, maillon *p2){
     if (p1 == NULL) return copie(p2);
     if (p2 == NULL) return copie(p1);
-    
     maillon *tete;
     maillon *courant;
     maillon *curr1 = p1;
