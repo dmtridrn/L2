@@ -10,29 +10,32 @@ from ea4lib import printcol
 #
 def parcoursInfixe(arbre):
     res = []
-    if arbre != None:
+    if not estVide(arbre):
        res += parcoursInfixe(filsGauche(arbre))
        res += [etiquetteRacine(arbre)]
        res += parcoursInfixe(filsDroit(arbre))
-    return []
+    return res
 
 
 ######################
 # Exercice 1.2
 
-def estUnABR(arbre) :
-    ''' test si un arbre binaire est un ABR '''
-    # À COMPLÉTER !
-    return False
-
+def estUnABR(arbre):    
+    res = parcoursInfixe(arbre)
+    for i in range(len(res) - 1):
+       if res[i+1] <= res[i]:
+          return False
+    return True
 
 ######################
 # Exercice 1.3
 
 def minimumABR(arbre) :
-    ''' l'étiquette minimale de l'arbre (en supposant que c'est un ABR).
-    Renvoie None si l'arbre est vide '''
-    # À COMPLÉTER !
+    current = arbre
+    if not estVide(arbre):
+      while not estVide(filsGauche(arbre)):
+        current = filsGauche(arbre)
+      return etiquetteRacine(current)
     return None
 
 def maximumABR(arbre) :
