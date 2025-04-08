@@ -31,43 +31,69 @@ def estUnABR(arbre):
 # Exercice 1.3
 
 def minimumABR(arbre) :
+    if estVide(arbre):
+      return None
     current = arbre
-    if not estVide(arbre):
-      while not estVide(filsGauche(arbre)):
-        current = filsGauche(arbre)
-      return etiquetteRacine(current)
-    return None
+    while not estVide(filsGauche(current)):
+      current = filsGauche(current)
+    return etiquetteRacine(current)
 
 def maximumABR(arbre) :
-    ''' l'étiquette maximale de l'arbre (en supposant que c'est un ABR).
-    Renvoie None si l'arbre est vide '''
-    # À COMPLÉTER !
-    return None
+    if estVide(arbre):
+      return None
+    current = arbre
+    while not estVide(filsDroit(current)):
+      current = filsDroit(current)
+    return etiquetteRacine(current)
 
 
 ######################
 # Exercice 1.4
 
-def rechercheABR(arbre, elt) :
-    ''' retourne True si elt est dans arbre (en supposant que arbre est un ABR) '''
-    # À COMPLÉTER !
-    return False
+def rechercheABR(arbre, elt):
+    if estVide(arbre):
+        return False
+    current = arbre
+    while etiquetteRacine(current) != elt:
+        if elt > etiquetteRacine(current):
+            if estVide(filsDroit(current)):
+                return False
+            current = filsDroit(current)
+        else:
+            if estVide(filsGauche(current)):
+                return False
+            current = filsGauche(current)
+    return True
+    
 
 ######################
 # Exercice 1.5 
 
-def insertionABR(arbre, elt) :
+def insertionABR(arbre, elt):
     ''' insère correctement elt dans arbre (en supposant que arbre est un ABR) '''
-    # À COMPLÉTER !
-    return Vide
+    if estVide(arbre):
+        return Feuille(elt)
+    if elt == etiquetteRacine(arbre):
+        return arbre
+    if elt < etiquetteRacine(arbre):
+        return Noeud(etiquetteRacine(arbre), 
+                     insertionABR(filsGauche(arbre), elt), 
+                     filsDroit(arbre))
+    else:
+        return Noeud(etiquetteRacine(arbre), 
+                     filsGauche(arbre), 
+                     insertionABR(filsDroit(arbre), elt))
 
 #######################
 # Exercice 1.6
 
 def testInsertionPersonnel():
-  # A REMPLIR
-  return None
-
+  elements = [50, 25, 75, 12, 37, 62, 87, 6, 18, 31, 43, 56, 68, 81, 93]
+  arbre = Vide
+  for elt in elements:
+        arbre = insertionABR(arbre, elt)
+  dessineArbreBinaire(arbre,"dessins_ex1/monarbre")
+  
 def testInsertion2():
   ''' Effectue des insertions successives, affiche le resultat dans dessin_ex1/monarbre.pdf, 
   et le compare avec le résultat attendu contenu dans arbre_insertion.txt'''
