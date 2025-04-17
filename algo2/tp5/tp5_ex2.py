@@ -23,8 +23,9 @@ def permutation(n) :
 def hauteur(arbre):
     ''' retourne la hauteur du sous-arbre de racine r de l'arbre
     (en particulier, -1 pour l'arbre vide) '''
-    # À COMPLÉTER !
-    return 0
+    if estVide(arbre):
+       return -1
+    return max(hauteur(filsGauche(arbre)), hauteur(filsDroit(arbre))) + 1
 
 ##################
 # Exercice 2.2
@@ -32,17 +33,24 @@ def hauteur(arbre):
 def genererABRparInsertion(perm) :
     ''' renvoie un ABR construit par insertions successives des éléments
     de la permutation perm '''
-    # À COMPLÉTER !
-    return Vide
+    arbre = Vide
+    for elt in perm:
+       arbre = insertionABR(arbre,elt)
+    return arbre
 
 ##################
 # Exercice 2.3
 
-def statsHauteursABRparInsertion(n,m) :
+def statsHauteursABRparInsertion(n, m):
     ''' renvoie les hauteurs de m arbres de taille n, construits par
     genereABRparInsertion '''
-   # À COMPLÉTER !
-    return []
+    hauteurs = []
+    for i in range(m):
+        perm = permutation(n)
+        arbre = genererABRparInsertion(perm)
+        h = hauteur(arbre)
+        hauteurs.append(h)
+    return hauteurs
 
 ##################
 # Exercice 2.4 
@@ -51,7 +59,8 @@ def statsHauteursABRparInsertion(n,m) :
 ########## le nombre d'insertions successives effectuées ##########
 ################  depuis une permutation aléatoire #################
 ###################################################################
-# commentaires...
+# La hauteur moyenne des ABR créés par insertions aléatoires
+# augmente de façon logarithmique avec le nombre de noeuds n
 ###################################################################
 
 

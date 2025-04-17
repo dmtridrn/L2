@@ -6,30 +6,73 @@ from tp5_ex2 import *
 ################
 # Exercice 3.1
 
-def supprimerPlusPetit(arbre) :
+def supprimerPlusPetit(arbre):
     ''' Supprime le plus petit élément de arbre. Renvoie la paire (elt,new_arbre)
     où elt est le plus petit élement de arbre et new_arbre est le nouvel arbre.
     Renvoie None et Vide quand arbre est vide.'''
-    # À COMPLÉTER !
-    return None, Vide
+    if estVide(arbre):
+        return None, Vide
+    if estVide(filsGauche(arbre)):
+        return etiquetteRacine(arbre), filsDroit(arbre)
+    
+    val_min, nouvel_arbre_gauche = supprimerPlusPetit(filsGauche(arbre))
+    return val_min, Noeud(etiquetteRacine(arbre), nouvel_arbre_gauche, filsDroit(arbre))
+
+    
 
 
-def supprimerPlusGrand(arbre) :
+
+def supprimerPlusGrand(arbre):
     ''' Supprime le plus grand élément de arbre. Renvoie la paire (elt,new_arbre)
     où elt est le plus grand élement de arbre et new_arbre est le nouvel arbre.
     Renvoie None et Vide quand arbre est vide.'''
-    # À COMPLÉTER !
-    return None, Vide
+    if estVide(arbre):
+        return None, Vide
+    
+    if estVide(filsDroit(arbre)):
+        return etiquetteRacine(arbre), filsGauche(arbre)
+    
+    val_max, nouvel_arbre_droit = supprimerPlusGrand(filsDroit(arbre))
+    return val_max, Noeud(etiquetteRacine(arbre), filsGauche(arbre), nouvel_arbre_droit)
 
 ################
 # Exercice 3.2
 
-def suppressionABR(arbre, elt, pred=True) :
+def suppressionABR(arbre, elt, pred=True):
     ''' supprime le noeud d'étiquette elt dans l'arbre
     Pred vaut True si on priorise le prédécesseur, et False si on
     priorise le successeur'''
-    # À COMPLÉTER !
-    return None
+    # Cas de base: arbre vide, on n'a pas trouvé l'élément
+    if estVide(arbre):
+        return None
+    
+    if etiquetteRacine(arbre) == elt:
+        if estVide(filsGauche(arbre)) and estVide(filsDroit(arbre)):
+            return Vide
+        
+        if estVide(filsGauche(arbre)):
+            return filsDroit(arbre)
+        if estVide(filsDroit(arbre)):
+            return filsGauche(arbre)
+        
+        if pred:
+            val_pred, nouveau_gauche = supprimerPlusGrand(filsGauche(arbre))
+            return Noeud(val_pred, nouveau_gauche, filsDroit(arbre))
+        else:
+            val_succ, nouveau_droit = supprimerPlusPetit(filsDroit(arbre))
+            return Noeud(val_succ, filsGauche(arbre), nouveau_droit)
+    
+    elif elt < etiquetteRacine(arbre):
+        nouveau_gauche = suppressionABR(filsGauche(arbre), elt, pred)
+        if nouveau_gauche is None:
+            return None
+        return Noeud(etiquetteRacine(arbre), nouveau_gauche, filsDroit(arbre))
+    
+    else:
+        nouveau_droit = suppressionABR(filsDroit(arbre), elt, pred)
+        if nouveau_droit is None:
+            return None
+        return Noeud(etiquetteRacine(arbre), filsGauche(arbre), nouveau_droit)
 
 #####################################################################
 ##  TESTS
