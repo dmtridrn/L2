@@ -136,7 +136,9 @@ def statsHauteursABRparInsEtSup(n, m) :
 ###################################################################
 #### Commentez ici les la hauteur des arbres en fonctions de n ####
 ###################################################################
-# commentaires...
+# les points suivent globalement la forme de la courbe logarithmique mais sont pour la plupart très au dessus
+# Cela indique que la croissance de la hauteur reste logarithmique mais que le facteur multiplicatif
+# est bien plus élevé que pour un ABR idéal.
 ###################################################################
 
 ####### NE PAS MODIFIER #######
