@@ -65,18 +65,18 @@ class TableHachage:
 
 def hash1(hcle, taille):
     pos = hcle % taille
-    return pos;
+    return pos
 
 def hash2(hcle, taille):
-    return 1;
+    return 1
 
 def hash1b(hcle, taille):
-    
-    return
+    kA = hcle * A
+    partie_frac = kA - math.floor(kA)
+    return math.floor(partie_frac * taille)
 
 def hash2b(hcle, taille):
-    #A COMPLETER
-    return
+    return (2 * hcle + 1) % taille
 
 
 ##############################################################
@@ -111,6 +111,13 @@ def rechercher(table, cle, flag=False):
     
 
 def inserer(table, cle):
+    #check
+    if (table.nbCles + table.nbMarques) / table.lg > table.tmax:
+        if table.nbCles / table.lg <= table.tmax:
+            table = redimensionner(table, table.lg)
+        else:
+            table = redimensionner(table, table.lg * 2)
+    
     pos = rechercher(table, cle, True)
     if not table.estVide(pos) and not table.estMarquee(pos):
         if table.getCle(pos) == cle:
@@ -122,16 +129,42 @@ def inserer(table, cle):
     elif table.estMarquee(pos):
         table.cles[pos] = (hcle, cle)
         table.nbCles += 1
-        table.nbMarquees -= 1
+        table.nbMarques -= 1
+    #2e check
+    if (table.nbCles + table.nbMarques) / table.lg > table.tmax:
+        if table.nbCles / table.lg <= table.tmax:
+            table = redimensionner(table, table.lg)
+        else:
+            table = redimensionner(table, table.lg * 2)
+    
     return table
 
 def supprimer(table, cle):
-    #A COMPLETER
+    pos = rechercher(table, cle)
+    if pos is not None and not table.estVide(pos) and not table.estMarquee(pos):
+        table.cles[pos] = MARQUE
+        table.nbCles -= 1
+        table.nbMarques += 1
+
+        if table.nbCles / table.lg < table.tmin:
+            new_size = table.lg // 2
+            table = redimensionner(table, new_size)
+            
     return table
 
 def redimensionner(table, l):
-    #A COMPLETER
-    return table
+    nouvelle_table = TableHachage(
+        l,
+        table.h,
+        table.h1,
+        table.h2,
+        table.tmin,
+        table.tmax
+    )
+    for i in range(table.lg):
+        if not table.estVide(i) and not table.estMarquee(i):
+            nouvelle_table = inserer(nouvelle_table, table.getCle(i))
+    return nouvelle_table
 
 ##############################################################
 #
@@ -367,7 +400,17 @@ if __name__ == '__main__':
     #courbes(liste_hash, 2000, tmin, tmax, alea=True, rep=10, pas=100)
 
     ########################################################################
-    # vos commentaires en réponse à la question 6 de l'exercice 1...
+    #
+    #1. Pour des données groupées:
+    #    - les fonctions simples quand elles sont ensembles(hash1+hash2) mettent plus de temps à créer un tab par insertions successives
+    #       et génèrent des tables avec des clusters très importants comparé aux autres couples de fonctions
+    #       La recherche s'en trouve donc impactée et le temps moyen peut exploser
+    #    - La combinaison hash1b+hash2b offre les meilleures performances
+
+    #2. Pour des données aléatoires:
+    #    - Les différences entre fonctions de hachage sont moins prononcées sauf pour les très grands tableaux
+    #   -pour les clusters, les couples comprenant hash2b ont l'air bien plus efficaces
+    #   
     #
     ########################################################################
 
