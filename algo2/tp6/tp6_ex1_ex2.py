@@ -418,11 +418,11 @@ if __name__ == '__main__':
 
     #Tests avec jusqu'à 2000 (par pas de 50) clés de valeurs proches par plages, avec taux tmin et tmax.
     #Pour chaque taille, on fait des tests sur rep=10 listes.
-    #courbes(liste_hash, 2000, tmin, tmax, rep=10, pas=100, redim=True)
+    courbes(liste_hash, 2000, tmin, tmax, rep=10, pas=100, redim=True)
 
     #Tests avec jusqu'a 2000 (par pas de 50) clés aléatoires, avec taux tmin et tmax.
     #Pour chaque taille, on fait des tests sur rep=10 listes.
-    #courbes(liste_hash, 2000, tmin, tmax, alea=True, rep=10, pas=100, redim=True)
+    courbes(liste_hash, 2000, tmin, tmax, alea=True, rep=10, pas=100, redim=True)
 
     ########################################################################
     # vos commentaires en réponse à la question 3 de l'exercice 2...
