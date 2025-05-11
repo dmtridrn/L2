@@ -426,5 +426,23 @@ if __name__ == '__main__':
 
     ########################################################################
     # vos commentaires en réponse à la question 3 de l'exercice 2...
+    #1. Pour des données groupées:
+    #   -tous les couples se valent pour la création de la table par insertions successives
+    #   -le couple(hash1,hash2b) provoque des clusters bien plus importants que les 2 autres
+    #   -pour la recherche: le couple (hash1b,hash2) est beaucoup plus lent pour les petites tables
+    #   mais tous les couples se valent pour les grandes valeurs
+    #2. Pour des données aléatoires:
+    #   -tous les couples se valent pour la création de la table par insertions successives
+    #   -le couple(hash1b,hash2) provoque des clusters bien plus importants que les 2 autres
+    #   -pour la recherche: le couple (hash1b,hash2) est beaucoup plus lent pour les petites tables
+    #   mais tous les couples se valent pour les grandes valeurs
+    #3. En jouant avec tmin et tmax:
+    #   -pour un tmin plus petit(0.1) le temps d'éxécution pour la recherche
+    #    explose pour le couple (hash1b,hash2b)
+    #   -pour un tmax plus grand(0.9) le couple (hash1,hash2b) voit ses clusters exploser en taille
+    #   le temps d'éxécution pour la recherche
+    #    explose pour le couple (hash1b,hash2b)
+    #   pour la recherche: le couple (hash1b,hash2) est beaucoup plus lent pour toutes les tailles de table
+    #   
     #
     ########################################################################
